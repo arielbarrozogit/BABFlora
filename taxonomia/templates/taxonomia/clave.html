@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Clave Dicotómica</title>
+</head>
+<body>
+
+<h1>Clave Dicotómica</h1>
+<h2>{{ nodo.pregunta }}</h2>
+{% for opcion in nodo.opciones.all %}
+    {% if opcion.siguiente_nodo %}
+        <p>
+            <a href="/clave/{{ opcion.siguiente_nodo.id }}/">
+                {{ opcion.opcion }}
+            </a>
+        </p>
+    {% else %}
+        <p>Resultado: {{ opcion.resultado_taxon }}
+    {% endif %}
+{% endfor %}
+
+    
+
+
+
+

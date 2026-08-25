@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ familia.family_name }}</title>
+</head>
+<body>
+
+<h1>{{ familia.family_name }}</h1>
+
+<hr>
+
+<h2>Clave para determinar tribus</h2>
+
+<div>
+    {{ familia.clave|safe }}
+</div>
+
+<!-- NUEVO: Lista de géneros -->
+
+<hr>
+
+<h2>Géneros de esta familia</h2>
+
+{% if generos %}
+
+<ul>
+
+{% for genero in generos %}
+
+<li>
+
+<a href="/genero/{{ genero.id }}/">
+
+{{ genero.genus }}
+
+</a>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p>No se encontraron géneros asociados.</p>
+
+{% endif %}
+
+<!-- FIN NUEVO -->
+
+<hr>
+
+<h2>Descripción</h2>
+
+<div>
+    {{ familia.family_description|safe }}
+</div>
+
+<hr>
+
+<h2>Bibliografía</h2>
+
+<div>
+    {{ familia.referenciaBibliografica|safe }}
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BABFlora</title>
+</head>
+<body>
+
+<h1>BABFlora</h1>
+
+<h2>Familias disponibles</h2>
+
+<ul>
+
+{% for familia in familias %}
+
+<li>
+    <a href="/familia/{{ familia.id }}/">
+        {{ familia.family_name }}
+    </a>
+</li>
+
+{% endfor %}
+
+</ul>
+
+</body>
+</html>

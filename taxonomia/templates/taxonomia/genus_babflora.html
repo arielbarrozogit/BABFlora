@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ genero.genus }}</title>
+</head>
+<body>
+
+<h1>{{ genero.genus }}</h1>
+
+<hr>
+
+<h2>Clave de identificación</h2>
+
+<div>
+    {{ genero.Claveidentif|safe }}
+</div>
+
+<hr>
+
+<h2>Descripción</h2>
+
+<div>
+    {{ genero.Descripcion|safe }}
+</div>
+
+<hr>
+
+<h2>Bibliografía</h2>
+
+<div>
+    {{ genero.RefBibliografica|safe }}
+</div>
+
+<hr>
+<hr>
+
+<h2>Especies del género {{ genero.genus }}</h2>
+
+<ul>
+{% for taxon in taxones %}
+        <li>
+            {{ taxon.ScientificName }}
+        </li>
+    {% empty %}
+        <li>No se encontraron especies</li>
+    {% endfor %}
+</ul>
+
+
+<p>
+    <a href="javascript:history.back()">Volver</a>
+</p>
+
+</body>
+</html>
