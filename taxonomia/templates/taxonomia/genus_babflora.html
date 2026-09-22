@@ -40,7 +40,9 @@
 <ul>
 {% for taxon in taxones %}
         <li>
-            {{ taxon.ScientificName }}
+            <a href="{% url 'taxon_detail' taxon.id %}">
+                {{ taxon.ScientificName }}
+            </a>
         </li>
     {% empty %}
         <li>No se encontraron especies</li>

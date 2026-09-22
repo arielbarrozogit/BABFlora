@@ -7,6 +7,7 @@ from .views import(
     familias,
     familia_detail,
     genus_detail,
+    taxon_detail,
 )
 
 
@@ -31,5 +32,10 @@ urlpatterns = [
         'genero/<int:id>/',
         genus_detail,
         name='genus_detail'
-    ),
+    ), 
+    path(
+        'taxon/<int:id>/',
+        taxon_detail,
+        name='taxon_detail'
+    )   
 ]

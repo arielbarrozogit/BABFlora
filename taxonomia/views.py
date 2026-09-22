@@ -1,5 +1,7 @@
+import re
 from django.shortcuts import render
-from .models import Family, Genus, Taxon
+from django.urls import reverse
+from .models import Family, Genus, Taxon, TaxonLink
 
 # Create your views here.
 from django.shortcuts import render, get_object_or_404
@@ -35,6 +37,7 @@ def familias(request):
             'familias': familias
         }
     )
+
 def familia_detail(request, id):
 
     familia = Family.objects.using(
@@ -42,6 +45,7 @@ def familia_detail(request, id):
     ).get(
         id=id
     )
+
     generos = Genus.objects.using(
         'dbgermoherb_22082014'
     ).filter(
@@ -50,14 +54,37 @@ def familia_detail(request, id):
         'genus'
     )
 
+    clave_html = familia.clave or ""
+
+    for genero in generos:
+       
+        url = reverse(
+            'genus_detail',
+            args=[genero.id]
+        )
+        enlace = (
+            f'<a href="{url}">'
+            f'{genero.genus}'
+            f'</a>'
+        )
+        patron = r'\b' + re.escape(genero.genus) + r'\b'
+        clave_html = re.sub(
+            patron,
+            enlace,
+            clave_html
+        )
+
+        familia.clave = clave_html
+
     return render(
         request,
-        'taxonomia/familia_babflora.html',
-        {
+        'taxonomia/familia_babflora.html',       {
             'familia': familia,
-            'generos': generos
+            'generos': generos,
+           
         }
     )
+
 
 def genus_detail(request, id):
 
@@ -75,6 +102,80 @@ def genus_detail(request, id):
         'specie'
     )
 
+    clave_html = genero.Claveidentif or ""
+
+    for taxon in taxones:
+        url = reverse(
+            'taxon_detail',
+            args=[taxon.id]
+        )
+        if getattr(taxon, 'subspecie', None):
+
+            texto = (
+                f"{genero.genus[0]}. "
+                f"{taxon.specie}"
+                f" ssp. {taxon.subspecie}"
+            )
+
+            enlace = (
+                f'<a href="{url}">'
+                f'{texto}'
+                f'</a>'
+            )
+            clave_html = clave_html.replace(
+                texto,
+                enlace
+                )
+
+
+            #patron = r'\b' + re.escape(texto) + r'\b'
+
+            clave_html = re.sub(
+                patron,
+                enlace,
+                clave_html
+            )
+
+        #
+    # PASADA 2
+    # ESPECIES SIMPLES
+    #
+    for taxon in taxones:
+        
+        if getattr(taxon, 'subspecie', None):
+            continue
+        
+        if getattr(taxon, 'variety', None):
+            continue
+
+        url = reverse(
+        'taxon_detail',
+        args=[taxon.id]
+        )
+        
+        texto = (
+        f"{genero.genus[0]}. "
+        f"{taxon.specie}"
+        )
+        
+        enlace = (
+        f'<a href="{url}">'
+        f'{texto}'
+        f'</a>'
+        )
+        
+        patron = r'\b' + re.escape(texto) + r'\b'
+        
+        clave_html = re.sub(
+        patron,
+        enlace,
+        clave_html
+        )
+
+
+
+    genero.Claveidentif = clave_html
+
     return render(
         request,
         'taxonomia/genus_babflora.html',
@@ -84,5 +185,27 @@ def genus_detail(request, id):
         }
     )
 
+def taxon_detail(request, id):
+
+    taxon = Taxon.objects.using(
+        'dbgermoherb_22082014'
+    ).get(
+        id=id
+    )
+
+    links = TaxonLink.objects.using(
+        'dbgermoherb_22082014'
+    ).filter(
+        idTaxon=id
+    )
+
+    return render(
+        request,
+        'taxonomia/taxon_detail.html',
+        {
+            'taxon': taxon,
+            'links': links
+        }
+    )
 
 

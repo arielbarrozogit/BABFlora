@@ -223,6 +223,18 @@ class Taxon(models.Model):
         null=True,
         blank=True
     )
+    subspecie = models.CharField(
+        max_length=64,
+        null=True,
+        blank=True
+        )
+
+    variety = models.CharField(
+    max_length=64,
+    null=True,
+    blank=True
+    )
+    
 
     ScientificName = models.CharField(
         max_length=150,
@@ -243,3 +255,43 @@ class Taxon(models.Model):
     class Meta:
         managed = False
         db_table = 'tb_taxon'
+
+class TaxonLink(models.Model):
+
+    idGBCollections = models.IntegerField()
+
+    idTaxon = models.IntegerField()
+
+    description = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    descriptionEng = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+    pathThumbnail = models.CharField(
+        max_length=512,
+        null=True,
+        blank=True
+    )
+
+    pathLink = models.CharField(
+        max_length=512,
+        null=True,
+        blank=True
+    )
+
+    pathLinkUrl = models.CharField(
+        max_length=512,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        managed = False
+        db_table = 'tb_taxonlink'

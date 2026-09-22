@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>{{ taxon.ScientificName }}</title>
+
+    <style>
+
+.galeria{
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.tarjeta{
+    border:1px solid #ccc;
+    padding:10px;
+    background:white;
+    text-align:center;
+}
+
+.tarjeta img{
+    max-width:100%;
+    height:auto;
+}
+
+</style>
+</head>
+<body>
+
+<h1>{{ taxon.ScientificName }}</h1>
+
+<hr>
+
+<h2>Descripción</h2>
+
+<div>
+    {{ taxon.Descripcion|safe }}
+</div>
+
+<hr>
+
+<h2>Objetos Asociados</h2>
+
+<div class="galeria">
+
+{% for link in links %}
+       
+    <div class="tarjeta">
+
+    <h4>{{ link.description }}</h4>
+
+    <a href="http://127.0.0.1:8080/DBFlora/{{ link.pathLink}}" target="_blank">
+        <img src="http://127.0.0.1:8080/DBFlora/{{ link.pathThumbnail }}" alt="{{ link.description }}" style="max-width: 100%; height: auto;">
+    </a>
+
+    </div>
+{% empty %}
+
+    <li>No existen objetos asociados</li>
+
+{% endfor %}
+</ul>
+
+</body>
+</html>
