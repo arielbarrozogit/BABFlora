@@ -1,6 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .clave-box{
+        background:#f8f8f8;
+        border:1px solid #dddddd;
+        border-radius:8px;
+        padding:18px;
+        }
+
+        .nivel1{
+        display:inline-block;
+        margin-left:0;
+        font-weight:bold;
+        }
+
+        .nivel2{
+        display:inline-block;
+        margin-left:20px;
+        font-weight:bold;
+        }
+
+        .nivel3{
+        display:inline-block;
+        margin-left:40px;
+        font-weight:bold;
+        }
+
+        .nivel4{
+        display:inline-block;
+        margin-left:60px;
+        font-weight:bold;
+        }
+
+        .nivel5{
+        display:inline-block;
+        margin-left:80px;
+        font-weight:bold;
+        }
+
+        .nivel6{
+        display:inline-block;
+        margin-left:100px;
+        font-weight:bold;
+        }
+        .depth1{ margin-left:0px; }
+        .depth2{ margin-left:25px; }
+        .depth3{ margin-left:50px; }
+        .depth4{ margin-left:75px; }
+        .depth5{ margin-left:100px; }
+        .depth6{ margin-left:125px; }
+         
+        .group1{
+        border-left:3px solid #d0d0d0;
+        padding-left:8px;
+        }
+         
+        .group2{
+        border-left:3px solid #d8e2d0;
+        padding-left:8px;
+        }
+         
+        .group3{
+        border-left:3px solid #d0d0d0;
+        padding-left:8px;
+        }
+         
+        .group4{
+        border-left:3px solid #d8e2d0;
+        padding-left:8px;
+        }
+    </style>
     <meta charset="utf-8">
     <title>{{ genero.genus }}</title>
 </head>
@@ -12,7 +82,7 @@
 
 <h2>Clave de identificación</h2>
 
-<div>
+<div class="clave-box">
     {{ genero.Claveidentif|safe }}
 </div>
 
